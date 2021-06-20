@@ -77,6 +77,14 @@
                     </ScrollViewer>
                 </DockPanel>
             </TabItem>
+            <TabItem x:Name="TabAttachments" Header="Attachments">
+                <DockPanel>
+                    <controls:StatusBar DataContext="{Binding StatusBarModel}" DockPanel.Dock="Bottom" />
+                    <ScrollViewer>
+                        <ContentPresenter Content="{Binding AttachmentsPage}" Classes="page" />
+                    </ScrollViewer>
+                </DockPanel>
+            </TabItem>
             <TabItem x:Name="TabViewer" Header="Viewer">
                 <DockPanel>
                     <controls:StatusBar DataContext="{Binding StatusBarModel}" DockPanel.Dock="Bottom" />

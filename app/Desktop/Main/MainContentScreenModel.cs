@@ -13,6 +13,9 @@ namespace DHT.Desktop.Main {
 		public TrackingPage TrackingPage { get; }
 		private TrackingPageModel TrackingPageModel { get; }
 
+		public AttachmentsPage AttachmentsPage { get; }
+		private AttachmentsPageModel AttachmentsPageModel { get; }
+
 		public ViewerPage ViewerPage { get; }
 		private ViewerPageModel ViewerPageModel { get; }
 
@@ -32,6 +35,9 @@ namespace DHT.Desktop.Main {
 
 			TrackingPageModel = new TrackingPageModel(window, db);
 			TrackingPage = new TrackingPage { DataContext = TrackingPageModel };
+
+			AttachmentsPageModel = new AttachmentsPageModel(db);
+			AttachmentsPage = new AttachmentsPage { DataContext = AttachmentsPageModel };
 
 			ViewerPageModel = new ViewerPageModel(window, db);
 			ViewerPage = new ViewerPage { DataContext = ViewerPageModel };
