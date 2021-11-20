@@ -5,7 +5,7 @@ using Microsoft.Data.Sqlite;
 
 namespace DHT.Server.Database.Sqlite {
 	internal class Schema {
-		internal const int Version = 1;
+		internal const int Version = 2;
 
 		private readonly SqliteConnection conn;
 
@@ -100,11 +100,24 @@ namespace DHT.Server.Database.Sqlite {
 			Execute("CREATE INDEX embeds_message_ix ON embeds(message_id)");
 			Execute("CREATE INDEX reactions_message_ix ON reactions(message_id)");
 
-			Execute("INSERT INTO metadata (key, value) VALUES ('version', " + Version + ")");
+			Execute("INSERT INTO metadata (key, value) VALUES ('version', 1)");
+			UpgradeSchemas(1);
 		}
 
 		private void UpgradeSchemas(int dbVersion) {
 			Execute("UPDATE metadata SET value = " + Version + " WHERE key = 'version'");
+
+			if (dbVersion == 1) {
+				UpgradeVersion1To2();
+			}
+		}
+
+		private void UpgradeVersion1To2() {
+			Execute("INSERT INTO metadata (key, value) VALUES ('download-attachments-automatically', 0)");
+			Execute(@"CREATE TABLE downloads (
+                      url TEXT NOT NULL PRIMARY KEY,
+                      status INTEGER NOT NULL,
+                      blob BLOB NOT NULL)");
 		}
 	}
 }
