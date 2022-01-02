@@ -5,7 +5,7 @@ using Microsoft.Data.Sqlite;
 
 namespace DHT.Server.Database.Sqlite {
 	internal class Schema {
-		internal const int Version = 2;
+		internal const int Version = 3;
 
 		private readonly SqliteConnection conn;
 
@@ -109,6 +109,9 @@ namespace DHT.Server.Database.Sqlite {
 
 			if (dbVersion <= 1) {
 				Execute("ALTER TABLE channels ADD parent_id INTEGER");
+			}
+			if dbVersion <= 2 {
+				// TODO: create the components table here
 			}
 		}
 	}
